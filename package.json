@@ -3,17 +3,50 @@
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
-    "node": "22"
+    "node": "^22"
   },
   "scripts": {
     "dev": "npx nodemon src/index.ts",
+    "dev:1": "npx nodemon src/day1/index.ts",
+    "dev:2": "npx nodemon src/day2/index.ts",
+    "dev:3": "npx nodemon src/day3/index.ts",
+    "dev:4": "npx nodemon src/day4/index.ts",
+    "dev:5": "npx nodemon src/day5/index.ts",
+    "dev:6": "npx nodemon src/day6/index.ts",
+    "dev:7": "npx nodemon src/day7/index.ts",
+    "dev:8": "npx nodemon src/day8/index.ts",
+    "dev:9": "npx nodemon src/day9/index.ts",
+    "dev:10": "npx nodemon src/day10/index.ts",
+    "dev:11": "npx nodemon src/day11/index.ts",
+    "dev:12": "npx nodemon src/day12/index.ts",
+    "dev:13": "npx nodemon src/day13/index.ts",
+    "dev:14": "npx nodemon src/day14/index.ts",
+    "dev:15": "npx nodemon src/day15/index.ts",
+    "dev:16": "npx nodemon src/day16/index.ts",
+    "dev:17": "npx nodemon src/day17/index.ts",
+    "dev:18": "npx nodemon src/day18/index.ts",
+    "dev:19": "npx nodemon src/day19/index.ts",
+    "dev:20": "npx nodemon src/day20/index.ts",
+    "dev:21": "npx nodemon src/day21/index.ts",
+    "dev:22": "npx nodemon src/day22/index.ts",
+    "dev:23": "npx nodemon src/day23/index.ts",
+    "dev:24": "npx nodemon src/day24/index.ts",
+    "dev:25": "npx nodemon src/day25/index.ts",
+    "dev:26": "npx nodemon src/day26/index.ts",
+    "dev:27": "npx nodemon src/day27/index.ts",
+    "dev:28": "npx nodemon src/day28/index.ts",
+    "dev:29": "npx nodemon src/day29/index.ts",
+    "dev:30": "npx nodemon src/day30/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
   "devDependencies": {
-    "@types/node": "^22.13.5",
+    "@types/node": "^22.13.10",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "marked": "^15.0.7"
   }
 }
