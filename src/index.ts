@@ -4,6 +4,24 @@ import httpServer from "./httpServer";
 import { faviconListener } from "./listeners/faviconListener";
 import { rootListener } from "./listeners/rootListener";
 import { notFoundListener } from "./listeners/notFoundlistener";
+
+httpServer.on('request', (req, res) => {
+  console.log(req.headers.referer);
+  res.setHeader("Content-Type", "text/html");
+  res.end(`<!DOCTYPE html>
+<html>
+  <head>
+      <meta name="referrer" content="origin" />
+  </head>
+  <body>
+      <a href="http://localhost:5000/" target="_blank" referrerpolicy="unsafe-url">google</a>
+      <a href="http://localhost:5000/" target="_blank" rel="noreferrer">google</a>
+      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" referrerpolicy="no-referrer" />
+      <script src="https://unpkg.com/react@18/umd/react.development.js" referrerpolicy="no-referrer"></script>
+  </body>
+</html>`);
+});
+
 // import { createServer } from "http2";
 // const http2Server = createServer().listen(5001);
 // http2Server.on('stream', (stream, headers) => {
