@@ -1,26 +1,64 @@
 // import { readFileSync } from "fs";
 // import { join } from "path";
+import { parse } from "url";
 import httpServer from "./httpServer";
 import { faviconListener } from "./listeners/faviconListener";
 import { rootListener } from "./listeners/rootListener";
 import { notFoundListener } from "./listeners/notFoundlistener";
 
-httpServer.on('request', (req, res) => {
-  console.log(req.headers.referer);
-  res.setHeader("Content-Type", "text/html");
-  res.end(`<!DOCTYPE html>
-<html>
-  <head>
-      <meta name="referrer" content="origin" />
-  </head>
-  <body>
-      <a href="http://localhost:5000/" target="_blank" referrerpolicy="unsafe-url">google</a>
-      <a href="http://localhost:5000/" target="_blank" rel="noreferrer">google</a>
-      <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" referrerpolicy="no-referrer" />
-      <script src="https://unpkg.com/react@18/umd/react.development.js" referrerpolicy="no-referrer"></script>
-  </body>
-</html>`);
-});
+// 使用 socket 自行處理 raw http
+// 若沒處理好，則會造成 CRLF Injection !!!
+httpServer.on('request', function requestListener(req, res) {
+  if (!res.socket) return res.end();
+  
+  // parse request url
+  const parseQueryString = true;
+  const urlWithParsedQuery = parse(req.url || "", parseQueryString);
+  const { redirect } = urlWithParsedQuery.query;
+
+  // setup 302 redirect
+  if (typeof redirect === "string" && redirect.startsWith('http://localhost:5000')) {
+    res.socket.write('HTTP/1.1 302 Found\r\n');
+    res.socket.write('Connection: Close\r\n');
+    // CRLF Injection Vulnerability
+    // encodeURIComponent("http://localhost/test/r/nMalicious: Injected") => http%3A%2F%2Flocalhost%2Ftest%2Fr%2FnMalicious%3A%20Injected
+    // Malicious Input: http://localhost:5000/?redirect=http%3A%2F%2Flocalhost%3A5000%2Ftest%0D%0AMalicious%3A%20Injected
+    res.socket.write(`Location: ${redirect}\r\n`);
+    res.socket.write('\r\n');
+    res.socket.end();
+    res.socket.destroy();
+    return;
+  }
+
+  // 顯示 pathname
+  const responseHTML = urlWithParsedQuery.pathname || "";
+  res.socket.write('HTTP/1.1 200 OK\r\n');
+  res.socket.write('Content-Type: text/html\r\n');
+  res.socket.write('Connection: Close\r\n');
+  res.socket.write(`Content-Length: ${responseHTML.length}\r\n`);
+  res.socket.write('\r\n');
+  res.socket.write(responseHTML);
+  res.socket.end();
+  res.socket.destroy();
+})
+
+// 測試 referer
+// httpServer.on('request', (req, res) => {
+//   console.log(req.headers.referer);
+//   res.setHeader("Content-Type", "text/html");
+//   res.end(`<!DOCTYPE html>
+// <html>
+//   <head>
+//       <meta name="referrer" content="origin" />
+//   </head>
+//   <body>
+//       <a href="http://localhost:5000/" target="_blank" referrerpolicy="unsafe-url">google</a>
+//       <a href="http://localhost:5000/" target="_blank" rel="noreferrer">google</a>
+//       <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" referrerpolicy="no-referrer" />
+//       <script src="https://unpkg.com/react@18/umd/react.development.js" referrerpolicy="no-referrer"></script>
+//   </body>
+// </html>`);
+// });
 
 // import { createServer } from "http2";
 // const http2Server = createServer().listen(5001);
