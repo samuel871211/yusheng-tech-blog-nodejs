@@ -6,70 +6,10 @@ import { faviconListener } from "./listeners/faviconListener";
 import { rootListener } from "./listeners/rootListener";
 import { notFoundListener } from "./listeners/notFoundlistener";
 
-// 使用 socket 自行處理 raw http
-// 若沒處理好，則會造成 CRLF Injection !!!
 httpServer.on('request', function requestListener(req, res) {
-  if (!res.socket) return res.end();
-  
-  // parse request url
-  const parseQueryString = true;
-  const urlWithParsedQuery = parse(req.url || "", parseQueryString);
-  const { redirect } = urlWithParsedQuery.query;
-
-  // setup 302 redirect
-  if (typeof redirect === "string" && redirect.startsWith('http://localhost:5000')) {
-    res.socket.write('HTTP/1.1 302 Found\r\n');
-    res.socket.write('Connection: Close\r\n');
-    // CRLF Injection Vulnerability
-    // encodeURIComponent("http://localhost/test/r/nMalicious: Injected") => http%3A%2F%2Flocalhost%2Ftest%2Fr%2FnMalicious%3A%20Injected
-    // Malicious Input: http://localhost:5000/?redirect=http%3A%2F%2Flocalhost%3A5000%2Ftest%0D%0AMalicious%3A%20Injected
-    res.socket.write(`Location: ${redirect}\r\n`);
-    res.socket.write('\r\n');
-    res.socket.end();
-    res.socket.destroy();
-    return;
-  }
-
-  // 顯示 pathname
-  const responseHTML = urlWithParsedQuery.pathname || "";
-  res.socket.write('HTTP/1.1 200 OK\r\n');
-  res.socket.write('Content-Type: text/html\r\n');
-  res.socket.write('Connection: Close\r\n');
-  res.socket.write(`Content-Length: ${responseHTML.length}\r\n`);
-  res.socket.write('\r\n');
-  res.socket.write(responseHTML);
-  res.socket.end();
-  res.socket.destroy();
+  res.setHeader('Content-Type', 'text/html');
+  res.end('<script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siqadc3d4d2629b84987822e0d977b73498639824bfbfd0ef17c1b9eb74c47ae874" defer referrerpolicy="no-referrer"></script>');
 })
-
-// 測試 referer
-// httpServer.on('request', (req, res) => {
-//   console.log(req.headers.referer);
-//   res.setHeader("Content-Type", "text/html");
-//   res.end(`<!DOCTYPE html>
-// <html>
-//   <head>
-//       <meta name="referrer" content="origin" />
-//   </head>
-//   <body>
-//       <a href="http://localhost:5000/" target="_blank" referrerpolicy="unsafe-url">google</a>
-//       <a href="http://localhost:5000/" target="_blank" rel="noreferrer">google</a>
-//       <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" referrerpolicy="no-referrer" />
-//       <script src="https://unpkg.com/react@18/umd/react.development.js" referrerpolicy="no-referrer"></script>
-//   </body>
-// </html>`);
-// });
-
-// import { createServer } from "http2";
-// const http2Server = createServer().listen(5001);
-// http2Server.on('stream', (stream, headers) => {
-//     stream.respond({
-//         ':status': 200,
-//         'content-type': 'text/plain'
-//     });
-//     stream.end('ok');
-// });
-
 // const indexHTML = readFileSync(join(__dirname, 'index.html'));
 // let connectionCount = 0;
 
@@ -125,32 +65,4 @@ httpServer.on('request', function requestListener(req, res) {
 //     // connectionCount += 1;
 //     // console.log('connection', connectionCount);
 //     // socket.on('close', (hadError) => console.log('socket close', { hadError }));
-// });
-// httpServer.on("dropRequest", (req, socket) => {
-//     console.log("dropRequest", req, socket);
-// });
-// httpServer.on("upgrade", (req, socket, head) => {
-//     console.log("upgrade", req, socket, head);
-// });
-// httpServer.on("close", () => {
-//     console.log("close");
-// });
-// httpServer.on("connection", (socket) => {
-//     console.log("connection", socket);
-//     socket.end();
-// })
-// httpServer.on("error", (err) => {
-//     console.log("error", err);
-// })
-// httpServer.on("listening", () => {
-//     console.log("listening");
-// })
-// httpServer.on("checkContinue", (req, res) => {
-//     console.log("checkContinue")
-// })
-// httpServer.on("checkExpectation", (req, res) => {
-//     console.log("checkExpectation")
-// })
-// httpServer.on("clientError", (err, socket) => {
-//     console.log("clientError", err, socket);
 // });
