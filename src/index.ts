@@ -6,6 +6,13 @@ import { faviconListener } from "./listeners/faviconListener";
 import { rootListener } from "./listeners/rootListener";
 import { notFoundListener } from "./listeners/notFoundlistener";
 
+import 'dotenv/config'
+import { Sandbox } from '@e2b/code-interpreter'
+Sandbox.create().then((sandbox) => {
+  const host = sandbox.getHost(3000);
+  console.log(`https://${host}`);
+});
+
 httpServer.on('request', function requestListener(req, res) {
   res.setHeader('Content-Type', 'text/html');
   res.end('<script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siqadc3d4d2629b84987822e0d977b73498639824bfbfd0ef17c1b9eb74c47ae874" defer referrerpolicy="no-referrer"></script>');
