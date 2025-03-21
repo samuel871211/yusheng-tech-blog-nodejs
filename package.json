@@ -11,7 +11,7 @@
     "dev:google": "npx nodemon src/google-map-embed/index.ts",
     "dev:proxy": "npx nodemon src/proxy-to-third-party/index.ts",
     "dev:referer": "npx nodemon src/referer/index.ts",
-    "dev:sse": "npx nodemon src/server-send-events/index.ts",
+    "dev:sse": "npx nodemon src/server-sent-events/index.ts",
     "dev:e2b": "npx nodemon src/e2b/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
