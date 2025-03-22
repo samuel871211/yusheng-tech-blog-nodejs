@@ -13,6 +13,7 @@
     "dev:referer": "npx nodemon src/referer/index.ts",
     "dev:sse": "npx nodemon src/server-sent-events/index.ts",
     "dev:e2b": "npx nodemon src/e2b/index.ts",
+    "dev:openai": "npx nodemon src/openai/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
@@ -24,6 +25,7 @@
   },
   "dependencies": {
     "@e2b/code-interpreter": "^1.0.4",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "openai": "^4.89.0"
   }
 }
