@@ -1,18 +1,19 @@
-import OpenAI from "openai";
 import 'dotenv/config';
 import httpServer from "../httpServer";
+import Anthropic from '@anthropic-ai/sdk';
 
-const client = new OpenAI();
+const anthropic = new Anthropic();
 
 httpServer.on('request', async function requestListener(req, res) {
   try {
     if (req.url !== "/") return res.writeHead(204).end();
-    const completion = await client.chat.completions.create({
-      user: "yus",
-      model: "gpt-4o",
+
+    const msg = await anthropic.messages.create({
+      model: "claude-3-5-sonnet-20241022",
+      max_tokens: 1024,
       messages: [
         {
-          role: "developer",
+          role: "assistant",
           content: `
 1. Always response in Traditional Chinese, but please keep the professional terms in the computer field and use English
 e.g. HTTP header, streaming, tree-shaking...
@@ -26,30 +27,17 @@ e.g. HTTP header, streaming, tree-shaking...
         },
         {
           role: "user",
-          content: "搜尋 CRLF 相關的 CVE 漏洞，給我 1000 字的報告",
-        },
+          content: "搜尋 CRLF 相關的 CVE 漏洞，給我 1000 字的報告"
+        }
       ],
-      stream: true
-      // max_completion_tokens: 100,
-      // logprobs: true,
-      // metadata,
     });
-    res.setHeader("Content-Type", "text/plain; charset=utf-8");
-    res.setHeader("Transfer-Encoding", "chunked");
-    res.flushHeaders();
-    for await (const chunk of completion) {
-      const content = chunk.choices[0].delta.content;
-      if (!content) continue;
-      res.write(chunk.choices[0].delta.content);
-    }
-    res.end();
-    // console.log(completion);
-    // res.setHeader("Content-Type", "application/json");
-    // res.end(JSON.stringify(completion));
+    console.log(msg);
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify(msg));
   } catch (e) {
     console.log(e);
     res.statusCode = 500;
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(e));
   }
-});
+})
