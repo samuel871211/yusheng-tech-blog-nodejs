@@ -16,6 +16,11 @@
     "dev:claude": "npx nodemon src/claude/index.ts",
     "dev:mcp": "npx nodemon src/mcp/index.ts",
     "dev:stdin": "npx nodemon src/stdin/index.ts",
+    "dev:form-data": "npx nodemon src/multipart-form-data/index.ts",
+    "dev:disposition": "npx nodemon src/content-disposition/index.ts",
+    "dev:form-url": "npx nodemon src/x-www-form-urlencoded/index.ts",
+    "dev:sniffing": "npx nodemon src/mime-sniffing/index.ts",
+    "dev:magic-number": "npx nodemon src/magic-number/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
