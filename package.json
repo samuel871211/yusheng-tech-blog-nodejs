@@ -6,7 +6,6 @@
     "node": "^22"
   },
   "scripts": {
-    "dev": "npx nodemon src/index.ts",
     "dev:crlf": "npx nodemon src/CRLF-Injection/index.ts",
     "dev:google": "npx nodemon src/google-map-embed/index.ts",
     "dev:proxy": "npx nodemon src/proxy-to-third-party/index.ts",
