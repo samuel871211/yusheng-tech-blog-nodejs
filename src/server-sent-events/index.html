@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <header>
+      <h1>SSE Test Page</h1>
+    </header>
+    <script>
+      function handleSSE () {
+        const containerDiv = document.getElementById("container");
+        const eventSource = new EventSource("/sse");
+        eventSource.onmessage = (event) => {
+          containerDiv.innerText += `${event.data},`;
+          if (event.data === "1000") eventSource.close();
+        };
+      }
+      function handleCustomSSE () {
+        const containerDiv = document.getElementById("container");
+        const eventSource = new EventSource("/customSSE");
+        eventSource.addEventListener('customEvent1', (event) => {
+          console.log('customEvent1 triggered', event.data);
+          containerDiv.innerText += `${event.data},`;
+          if (event.data === "1000") eventSource.close();
+        });
+        eventSource.addEventListener('customEvent2', (event) => {
+          console.log('cutsomEvent2 triggered', event.data);
+          containerDiv.innerText += `${event.data},`;
+          if (event.data === "1000") eventSource.close();
+        });
+      }
+      function handleCustomSSEWithId () {
+        const containerDiv = document.getElementById("container");
+        const eventSource = new EventSource("/customSSEWithId");
+        eventSource.addEventListener('customEvent1', (event) => {
+          console.log('customEvent1 triggered', { id: event.lastEventId, data: event.data });
+          containerDiv.innerText += `${event.data},`;
+          if (event.data === "1000") eventSource.close();
+        });
+        eventSource.addEventListener('customEvent2', (event) => {
+          console.log('cutsomEvent2 triggered', { id: event.lastEventId, data: event.data });
+          containerDiv.innerText += `${event.data},`;
+          if (event.data === "1000") eventSource.close();
+        });
+      }
+      function handleMultiLineDataSSE () {
+        const containerDiv = document.getElementById("container");
+        const eventSource = new EventSource("/multiLineDataSSE");
+        eventSource.onmessage = (event) => {
+          console.log(event);
+          containerDiv.innerText = event.data;
+          eventSource.close();
+        };
+      }
+    </script>
+    <main>
+      <button onclick="handleSSE()">建立SSE連線</button>
+      <button onclick="handleCustomSSE()">建立Custom SSE連線</button>
+      <button onclick="handleCustomSSEWithId()">建立Custom SSE With Id 連線</button>
+      <button onclick="handleMultiLineDataSSE()">建立 MultiLine Data SSE 連線</button>
+      <div id="container" style="word-wrap: break-word;"></div>
+    </main>
+  </body>
+</html>
