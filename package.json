@@ -21,6 +21,7 @@
     "dev:form-url": "npx nodemon src/x-www-form-urlencoded/index.ts",
     "dev:sniffing": "npx nodemon src/mime-sniffing/index.ts",
     "dev:magic-number": "npx nodemon src/magic-number/index.ts",
+    "dev:compression": "npx nodemon src/compression/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
