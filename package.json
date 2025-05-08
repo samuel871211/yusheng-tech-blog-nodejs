@@ -24,6 +24,7 @@
     "dev:compression": "npx nodemon src/compression/index.ts",
     "dev:binary": "npx nodemon src/binary-data/index.ts",
     "dev:http-request-function": "npx nodemon src/http-request-function/index.ts",
+    "dev:xstate": "npx nodemon src/xstate/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
@@ -39,6 +40,7 @@
     "@modelcontextprotocol/sdk": "^1.7.0",
     "dotenv": "^16.4.7",
     "openai": "^4.89.0",
+    "xstate": "^4.38.3",
     "zod": "^3.24.2"
   }
 }
