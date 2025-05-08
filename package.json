@@ -23,6 +23,7 @@
     "dev:magic-number": "npx nodemon src/magic-number/index.ts",
     "dev:compression": "npx nodemon src/compression/index.ts",
     "dev:binary": "npx nodemon src/binary-data/index.ts",
+    "dev:http-request-function": "npx nodemon src/http-request-function/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
