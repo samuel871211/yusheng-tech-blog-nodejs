@@ -73,6 +73,20 @@ httpServer.on('request', function requestListener(req, res) {
         }, 1000);
         return;
     }
+    // chunked with connection: close
+    if (req.url === "/case6") {
+        // 先傳送 headers
+        res.setHeaders(new Headers({
+            Connection: "closed",
+            "Content-Type": "text/plain",
+            "Transfer-Encoding": "chunked"
+        }));
+        res.flushHeaders();
+
+        // 過 N 秒再回傳 body
+        setTimeout(() => res.end("hello world"), 3000);
+        return;
+    }
 
     return notFoundListener(req, res);
 });
