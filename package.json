@@ -28,6 +28,7 @@
     "dev:https-server": "npx nodemon src/https-server/index.ts",
     "dev:sec-fetch":"npx nodemon src/sec-fetch/index.ts",
     "dev:transfer-encoding": "npx nodemon src/transfer-encoding/index.ts",
+    "dev:frame": "npx nodemon src/x-frame-options-and-csp-frame-ancestors/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
