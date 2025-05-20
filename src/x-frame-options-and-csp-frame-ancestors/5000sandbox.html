@@ -1,0 +1,36 @@
+<html>
+  <head></head>
+  <body>
+    <h1>5000sandbox</h1>
+    <h3>allow-downloads</h3>
+    <div>
+      <a download href="http://localhost:5000/download"></a>
+    </div>
+    <h3>allow-forms</h3>
+    <h3>allow-modals</h3>
+    <h3>allow-popups</h3>
+    <div>
+      <dialog id="dialog">
+        <div>dialog content</div>
+        <button id="dialogCloseButton">close dialog</button>
+      </dialog>
+      <button id="dialogOpenButton">open dialog</button>
+      <a target="_blank" href="https://example.com/">open example.com</a>
+      <script>
+        open("https://example.com/");
+        const dialogElement = document.getElementById("dialog");
+        document.getElementById("dialogOpenButton")?.addEventListener('click', () => {
+          dialogElement.showModal();
+        });
+        document.getElementById("dialogCloseButton")?.addEventListener('click', () => {
+          dialogElement.close();
+        });
+      </script>
+    </div>
+    <h3>allow-popups-to-escape-sandbox</h3>
+    <h3>allow-same-origin</h3>
+    <h3>allow-scripts</h3>
+    <h3>allow-top-navigation</h3>
+    <h3>allow-top-navigation-by-user-activation</h3>
+  </body>
+</html>

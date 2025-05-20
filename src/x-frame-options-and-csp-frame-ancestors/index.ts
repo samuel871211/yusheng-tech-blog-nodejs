@@ -26,6 +26,15 @@ http5000Server.on('request', function requestListener(req, res) {
     res.setHeader("Content-Security-Policy", "frame-ancestors 'self'");
     return res.end(readFileSync(join(__dirname, "5000DENY+self.html")));
   }
+  if (req.url === "/sandbox") {
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    return res.end(readFileSync(join(__dirname, "5000sandbox.html")));
+  }
+  if (req.url === "/download") {
+    res.setHeader("Content-Type", "text/javascript");
+    res.setHeader("Content-Disposition", "attachment; filename=download.js");
+    return res.end(readFileSync(join(__dirname, "download.js")));
+  }
   return notFoundListener(req, res);
 })
 
