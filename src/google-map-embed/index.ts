@@ -1,7 +1,7 @@
 import httpServer from "../httpServer";
 
 // 記得要替換 API_KEY
-httpServer.on('request', (req, res) => {
+httpServer.on("request", (req, res) => {
   res.setHeader("Content-Type", "text/html");
   res.end(`<iframe
 width="600"

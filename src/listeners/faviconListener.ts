@@ -6,4 +6,4 @@ export const faviconListener: RequestListener<
 > = (req, res) => {
   res.statusCode = 204;
   res.end();
-} 
+};

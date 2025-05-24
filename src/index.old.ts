@@ -37,7 +37,7 @@ import { notFoundListener } from "./listeners/notFoundlistener";
 //     // https://github.com/nodejs/node/blob/main/lib/_http_server.js
 //     // nodeJS httpServer 會自動根據 req.headers.connection 來決定
 //     // res.setHeader('Connection', 'close');
-    
+
 //     // Start Line
 //     // HTTP/1.1 ${statusCode} ${statusMessage}
 //     // https://github.com/nodejs/node/blob/main/lib/_http_server.js#L413

@@ -1,5 +1,3 @@
-
-
 // 創建一個 8 bytes 的 memory 空間
 const arrayBuffer = new ArrayBuffer(8);
 // false
@@ -16,15 +14,18 @@ console.log(int8View.byteLength);
 // true
 console.log(arrayBuffer === int8View.buffer);
 // 127
-int8View[0] = 127; console.log(int8View.at(0));
+int8View[0] = 127;
+console.log(int8View.at(0));
 // -128
-int8View[0] = -128; console.log(int8View.at(0));
+int8View[0] = -128;
+console.log(int8View.at(0));
 
 const resizableArrayBuffer = new ArrayBuffer(8, { maxByteLength: 12 });
 // true
 console.log(resizableArrayBuffer.resizable);
 // 12
-resizableArrayBuffer.resize(12); console.log(resizableArrayBuffer.byteLength);
+resizableArrayBuffer.resize(12);
+console.log(resizableArrayBuffer.byteLength);
 const transferredResizableArrayBuffer = resizableArrayBuffer.transfer();
 // true
 console.log(transferredResizableArrayBuffer.resizable);

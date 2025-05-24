@@ -4,9 +4,9 @@ import { join } from "path";
 
 const httpsServer = createServer().listen(5001);
 httpsServer.setSecureContext({
-    key: readFileSync(join(__dirname, 'private-key.pem')),
-    cert: readFileSync(join(__dirname, 'cert.pem'))
+  key: readFileSync(join(__dirname, "private-key.pem")),
+  cert: readFileSync(join(__dirname, "cert.pem")),
 });
-httpsServer.on('request', function requestListener (req, res) {
-    res.end("HTTPS Server Successfully Started!!!")
+httpsServer.on("request", function requestListener(req, res) {
+  res.end("HTTPS Server Successfully Started!!!");
 });

@@ -2,14 +2,16 @@ import { request as httpRequest } from "http";
 import { request as httpsRequest } from "https";
 
 const requestCallback: Parameters<typeof httpRequest>[2] = (res) => {
-    const chunks: Buffer[] = [];
-    res.on('data', (chunk) => { chunks.push(chunk) });
-    res.on('end', () => {
-        const buffer = Buffer.concat(chunks);
-        const payload = buffer.toString('utf-8');
-        console.log(payload);
-    });
-}
+  const chunks: Buffer[] = [];
+  res.on("data", (chunk) => {
+    chunks.push(chunk);
+  });
+  res.on("end", () => {
+    const buffer = Buffer.concat(chunks);
+    const payload = buffer.toString("utf-8");
+    console.log(payload);
+  });
+};
 
 // 使用 http 模組去請求 https，會噴錯
 // TypeError: Protocol "https:" not supported. Expected "http:"

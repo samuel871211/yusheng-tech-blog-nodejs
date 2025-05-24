@@ -7,11 +7,11 @@ import { notFoundListener } from "../listeners/notFoundlistener";
 // 為了開發方便，每次 request 都去讀取 static html
 
 http5000Server.removeAllListeners("request");
-http5000Server.on('request', function requestListener(req, res) {
+http5000Server.on("request", function requestListener(req, res) {
   if (req.url === "/favicon.ico") return faviconListener(req, res);
   if (req.url === "/") {
     res.setHeader("Content-Type", "text/html; charset=utf-8");
-    return res.end(readFileSync(join(__dirname, "5000.html")))
+    return res.end(readFileSync(join(__dirname, "5000.html")));
   }
   if (req.url === "/welcome") {
     res.setHeader("Content-Type", "text/html; charset=utf-8");
@@ -36,10 +36,10 @@ http5000Server.on('request', function requestListener(req, res) {
     return res.end(readFileSync(join(__dirname, "download.js")));
   }
   return notFoundListener(req, res);
-})
+});
 
 http5001Server.removeAllListeners("request");
-http5001Server.on('request', function requestListener(req, res) {
+http5001Server.on("request", function requestListener(req, res) {
   if (req.url === "/favicon.ico") return faviconListener(req, res);
   if (req.url === "/") {
     res.setHeader("Content-Type", "text/html; charset=utf-8");
@@ -72,8 +72,13 @@ http5001Server.on('request', function requestListener(req, res) {
   if (req.url === "/frame-ancestors-5000") {
     console.log(req.url);
     res.setHeader("Content-Type", "text/html; charset=utf-8");
-    res.setHeader("Content-Security-Policy", "frame-ancestors http://localhost:5000");
-    return res.end(readFileSync(join(__dirname, "5001frame-ancestors-5000.html")));
+    res.setHeader(
+      "Content-Security-Policy",
+      "frame-ancestors http://localhost:5000",
+    );
+    return res.end(
+      readFileSync(join(__dirname, "5001frame-ancestors-5000.html")),
+    );
   }
   return notFoundListener(req, res);
-})
+});

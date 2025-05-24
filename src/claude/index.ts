@@ -1,10 +1,10 @@
-import 'dotenv/config';
+import "dotenv/config";
 import httpServer from "../httpServer";
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const anthropic = new Anthropic();
 
-httpServer.on('request', async function requestListener(req, res) {
+httpServer.on("request", async function requestListener(req, res) {
   try {
     if (req.url !== "/") return res.writeHead(204).end();
 
@@ -23,12 +23,12 @@ e.g. HTTP header, streaming, tree-shaking...
 5. If you are not sure whether the answer is correct, please state it at the beginning
 6. When I ask if there is any official document for reference, please attach a link to the official document
 7. If you don’t have an answer to the question I asked you, just say I don’t know and don’t talk nonsense
-`
+`,
         },
         {
           role: "user",
-          content: "搜尋 CRLF 相關的 CVE 漏洞，給我 1000 字的報告"
-        }
+          content: "搜尋 CRLF 相關的 CVE 漏洞，給我 1000 字的報告",
+        },
       ],
     });
     console.log(msg);
@@ -40,4 +40,4 @@ e.g. HTTP header, streaming, tree-shaking...
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(e));
   }
-})
+});

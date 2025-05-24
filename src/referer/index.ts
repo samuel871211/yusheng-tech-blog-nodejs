@@ -1,7 +1,7 @@
 import httpServer from "../httpServer";
 
 // 測試 referer
-httpServer.on('request', (req, res) => {
+httpServer.on("request", (req, res) => {
   console.log(req.headers.referer);
   res.setHeader("Content-Type", "text/html");
   res.end(`<!DOCTYPE html>

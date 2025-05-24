@@ -9,8 +9,8 @@
 import httpServer from "../httpServer";
 import { readFileSync } from "fs";
 import { join } from "path";
-const image = readFileSync(join(__dirname, 'image.jpg'));
-httpServer.on('request', function requestListener (req, res) {
+const image = readFileSync(join(__dirname, "image.jpg"));
+httpServer.on("request", function requestListener(req, res) {
   res.setHeader("Content-Type", "image/jpeg");
   res.setHeader("Content-Disposition", "attachment; filename=image.jpg");
   res.end(image);

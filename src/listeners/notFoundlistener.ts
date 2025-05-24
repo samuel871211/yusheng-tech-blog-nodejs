@@ -1,4 +1,9 @@
-import { RequestListener, IncomingMessage, ServerResponse, STATUS_CODES } from "http";
+import {
+  RequestListener,
+  IncomingMessage,
+  ServerResponse,
+  STATUS_CODES,
+} from "http";
 
 export const notFoundListener: RequestListener<
   typeof IncomingMessage,
@@ -6,4 +11,4 @@ export const notFoundListener: RequestListener<
 > = (req, res) => {
   res.statusCode = 404;
   res.end(STATUS_CODES[404]);
-} 
+};

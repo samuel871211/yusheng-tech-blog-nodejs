@@ -5,6 +5,11 @@
   "engines": {
     "node": "^22"
   },
+  "lint-staged": {
+    "*.{ts,md}": [
+      "prettier --write"
+    ]
+  },
   "scripts": {
     "dev:crlf": "npx nodemon src/CRLF-Injection/index.ts",
     "dev:google": "npx nodemon src/google-map-embed/index.ts",
@@ -26,15 +31,20 @@
     "dev:http-request-function": "npx nodemon src/http-request-function/index.ts",
     "dev:xstate": "npx nodemon src/xstate/index.ts",
     "dev:https-server": "npx nodemon src/https-server/index.ts",
-    "dev:sec-fetch":"npx nodemon src/sec-fetch/index.ts",
+    "dev:sec-fetch": "npx nodemon src/sec-fetch/index.ts",
     "dev:transfer-encoding": "npx nodemon src/transfer-encoding/index.ts",
     "dev:frame": "npx nodemon src/x-frame-options-and-csp-frame-ancestors/index.ts",
+    "dev:retry-after": "npx nodemon src/retry-after/index.ts",
+    "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
   },
   "devDependencies": {
     "@types/node": "^22.15.14",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.0.0",
     "nodemon": "^3.1.9",
+    "prettier": "3.5.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   },
