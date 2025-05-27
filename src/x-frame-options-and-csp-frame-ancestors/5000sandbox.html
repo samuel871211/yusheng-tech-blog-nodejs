@@ -2,39 +2,58 @@
   <head></head>
   <body>
     <h1>5000sandbox</h1>
-    <h3>allow-downloads</h3>
+
+    <!-- <h3>allow-downloads</h3>
     <div>
-      <a download href="http://localhost:5000/download"></a>
-    </div>
-    <h3>allow-forms</h3>
+      <a download href="http://localhost:5000/download">download</a>
+    </div> -->
+
+    <!-- <h3>allow-forms</h3>
+    <form
+      method="post"
+      action="http://localhost:5000/form"
+      enctype="multipart/form-data"
+    >
+      <input type="text" placeholder="請輸入帳號" name="username" />
+      <button type="submit">送出</button>
+    </form> -->
+
     <h3>allow-modals</h3>
-    <h3>allow-popups</h3>
+    <script>
+      function promptUsername() {
+        const username = prompt("username");
+        console.log(username);
+      }
+      addEventListener("beforeunload", (e) => {
+        e.preventDefault();
+        e.returnValue = "beforeunload";
+        return "beforeunload";
+      });
+    </script>
+    <button onclick="alert('alert')">alert</button>
+    <button onclick="confirm('confirm')">confirm</button>
+    <button onclick="print()">print</button>
+    <button onclick="promptUsername()">prompt</button>
+
+    <!-- <h3>allow-popups</h3>
     <div>
-      <dialog id="dialog">
-        <div>dialog content</div>
-        <button id="dialogCloseButton">close dialog</button>
-      </dialog>
-      <button id="dialogOpenButton">open dialog</button>
-      <a target="_blank" href="https://example.com/">open example.com</a>
       <script>
-        open("https://example.com/");
-        const dialogElement = document.getElementById("dialog");
-        document
-          .getElementById("dialogOpenButton")
-          ?.addEventListener("click", () => {
-            dialogElement.showModal();
-          });
-        document
-          .getElementById("dialogCloseButton")
-          ?.addEventListener("click", () => {
-            dialogElement.close();
-          });
+        function openExampleCom() {
+          open("https://example.com/", "_blank");
+        }
       </script>
-    </div>
-    <h3>allow-popups-to-escape-sandbox</h3>
-    <h3>allow-same-origin</h3>
-    <h3>allow-scripts</h3>
-    <h3>allow-top-navigation</h3>
-    <h3>allow-top-navigation-by-user-activation</h3>
+      <a target="_blank" href="https://example.com/">open example.com</a>
+      <button onclick="openExampleCom()">open example.com</button>
+    </div> -->
+
+    <!-- <h3>allow-popups-to-escape-sandbox</h3> -->
+
+    <!-- <h3>allow-same-origin</h3> -->
+
+    <!-- <h3>allow-scripts</h3> -->
+
+    <!-- <h3>allow-top-navigation</h3> -->
+
+    <!-- <h3>allow-top-navigation-by-user-activation</h3> -->
   </body>
 </html>

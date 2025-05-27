@@ -35,6 +35,10 @@ http5000Server.on("request", function requestListener(req, res) {
     res.setHeader("Content-Disposition", "attachment; filename=download.js");
     return res.end(readFileSync(join(__dirname, "download.js")));
   }
+  if (req.url === "/form") {
+    res.setHeader("Content-Type", "text/plain");
+    return res.end("form submitted");
+  }
   return notFoundListener(req, res);
 });
 

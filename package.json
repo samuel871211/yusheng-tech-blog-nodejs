@@ -6,7 +6,7 @@
     "node": "^22"
   },
   "lint-staged": {
-    "*.{ts,md}": [
+    "*.{html,ts,md}": [
       "prettier --write"
     ]
   },
