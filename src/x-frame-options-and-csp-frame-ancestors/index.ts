@@ -39,6 +39,10 @@ http5000Server.on("request", function requestListener(req, res) {
     res.setHeader("Content-Type", "text/plain");
     return res.end("form submitted");
   }
+  if (req.url === "/sandbox-popup") {
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    return res.end(readFileSync(join(__dirname, "5000sandbox-popup.html")));
+  }
   return notFoundListener(req, res);
 });
 

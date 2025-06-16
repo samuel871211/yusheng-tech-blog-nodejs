@@ -5,7 +5,24 @@
 
     <!-- <h3>allow-downloads</h3>
     <div>
-      <a download href="http://localhost:5000/download">download</a>
+      <a download href="http://localhost:5000/download">
+        download file with download attribute
+      </a>
+      <br/>
+      <a href="http://localhost:5000/download">
+        navigate to a URL with Content-Disposition: attachment
+      </a>
+      <br/>
+      <script>
+        function handleDownload () {
+          const a = document.createElement('a');
+          a.href = "http://localhost:5000/download";
+          a.click();
+        }
+      </script>
+      <button onclick="handleDownload()">
+        download file with js control
+      </button>
     </div> -->
 
     <!-- <h3>allow-forms</h3>
@@ -16,9 +33,25 @@
     >
       <input type="text" placeholder="請輸入帳號" name="username" />
       <button type="submit">送出</button>
+    </form>
+
+    <dialog open>
+      <form method="dialog">
+        <input type="text" placeholder="請輸入帳號" name="username" pattern="" />
+        <button type="submit">Close Dialog</button>
+      </form>
+    </dialog>
+
+    <form
+      method="post"
+      action="http://localhost:5000/form"
+      enctype="multipart/form-data"
+    >
+      <input required type="text" placeholder="請輸入帳號(長度4~16)" name="username" pattern="\w{4,16}" />
+      <button type="submit">驗證 && 送出</button>
     </form> -->
 
-    <h3>allow-modals</h3>
+    <!-- <h3>allow-modals</h3>
     <script>
       function promptUsername() {
         const username = prompt("username");
@@ -33,7 +66,7 @@
     <button onclick="alert('alert')">alert</button>
     <button onclick="confirm('confirm')">confirm</button>
     <button onclick="print()">print</button>
-    <button onclick="promptUsername()">prompt</button>
+    <button onclick="promptUsername()">prompt</button> -->
 
     <!-- <h3>allow-popups</h3>
     <div>
@@ -46,14 +79,15 @@
       <button onclick="openExampleCom()">open example.com</button>
     </div> -->
 
-    <!-- <h3>allow-popups-to-escape-sandbox</h3> -->
+    <!-- <h3>allow-popups-to-escape-sandbox</h3>
+    <a target="_blank" href="http://localhost:5000/sandbox-popup">另開新頁</a>
+    <a target="_self" href="http://localhost:5000/sandbox-popup">原頁導轉</a> -->
 
+    <h3>allow-top-navigation</h3>
+
+    <h3>allow-top-navigation-by-user-activation</h3>
     <!-- <h3>allow-same-origin</h3> -->
 
     <!-- <h3>allow-scripts</h3> -->
-
-    <!-- <h3>allow-top-navigation</h3> -->
-
-    <!-- <h3>allow-top-navigation-by-user-activation</h3> -->
   </body>
 </html>
