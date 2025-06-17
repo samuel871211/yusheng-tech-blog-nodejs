@@ -33,7 +33,7 @@
     "dev:https-server": "npx nodemon src/https-server/index.ts",
     "dev:sec-fetch": "npx nodemon src/sec-fetch/index.ts",
     "dev:transfer-encoding": "npx nodemon src/transfer-encoding/index.ts",
-    "dev:frame": "npx nodemon src/x-frame-options-and-csp-frame-ancestors/index.ts",
+    "dev:frame": "npx nodemon src/iframe-security/index.ts",
     "dev:retry-after": "npx nodemon src/retry-after/index.ts",
     "prepare": "husky",
     "build": "tsc",
