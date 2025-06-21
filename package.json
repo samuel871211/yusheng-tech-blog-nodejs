@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.15.14",
+    "@types/send": "^0.17.5",
     "husky": "^9.1.7",
     "lint-staged": "^16.0.0",
     "nodemon": "^3.1.9",
@@ -54,7 +55,6 @@
     "@anthropic-ai/sdk": "^0.39.0",
     "@e2b/code-interpreter": "^1.0.4",
     "@modelcontextprotocol/sdk": "^1.7.0",
-    "@types/send": "^0.17.5",
     "dotenv": "^16.4.7",
     "openai": "^4.89.0",
     "send": "^1.2.0",
