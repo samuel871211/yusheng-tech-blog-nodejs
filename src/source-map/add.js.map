@@ -1,0 +1,9 @@
+
+{
+  "version": 3,
+  "sources": ["original.js"],
+  "names": ["add", "num1", "num2"],
+  "mappings": "AAAA,SAASA,IAAIC,EAAMC,GAAK,OAAOD,EAAOC,EAAO",
+  "file": "uglified.js",
+  "sourcesContent": ["function add(num1,num2) { return num1 + num2 }"]
+}
