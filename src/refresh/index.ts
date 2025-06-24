@@ -19,14 +19,18 @@ httpServer.on("request", function requestListener(req, res) {
   if (req.url == "/refreshed") {
     res.setHeader("Content-Type", "text/html");
     res.end(`
-            <html>
-                <head></head>
-                <body>
-                    <pre>${JSON.stringify(req.headers, null, 2)}</pre>
-                    <code>document.referrer: </code>
-                </body>
-            </html>
-        `);
+      <html>
+        <head></head>
+        <body>
+          <div>req.headers.referrer: ${req.headers.referer}</div>
+          <div id="documentReferrer"></div>
+          <script>
+            document.getElementById("documentReferrer").innerText = "document.referrer: " + document.referrer
+          </script>
+        </body>
+      </html>
+    `);
+    return;
   }
   return notFoundListener(req, res);
 });
