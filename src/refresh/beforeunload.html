@@ -1,0 +1,11 @@
+<html>
+  <head></head>
+  <body>
+    <script>
+      addEventListener("beforeunload", (e) => {
+        e.preventDefault();
+        e.returnValue = "123";
+      });
+    </script>
+  </body>
+</html>
