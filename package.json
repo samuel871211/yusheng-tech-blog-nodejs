@@ -39,6 +39,7 @@
     "dev:range": "npx nodemon src/range/index.ts",
     "dev:source-map": "npx nodemon src/source-map/index.ts",
     "dev:refresh": "npx nodemon src/refresh/index.ts",
+    "dev:hsts": "npx nodemon src/hsts/index.ts",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
