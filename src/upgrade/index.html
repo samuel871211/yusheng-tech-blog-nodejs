@@ -1,0 +1,42 @@
+<html>
+  <head></head>
+  <body>
+    <script>
+      const ws = new WebSocket("ws://localhost");
+      ws.addEventListener("open", function onOpen(event) {
+        console.log("open");
+        console.log(event);
+      });
+      ws.addEventListener("close", function onClose(event) {
+        console.log("close");
+        console.log(event);
+      });
+      ws.addEventListener("error", function onError(event) {
+        console.log("error");
+        console.log(event);
+      });
+      ws.addEventListener("message", function onMessage(event) {
+        console.log("message");
+        console.log(event);
+        appendMessageToDOM(event.data);
+      });
+      function handleSendMessage() {
+        const messageInput = document.getElementById("messageInput");
+        const chatRoomDiv = document.getElementById("chatRoom");
+        if (!messageInput.value) return;
+        ws.send(messageInput.value);
+        appendMessageToDOM(messageInput.value);
+        messageInput.value = "";
+      }
+      function appendMessageToDOM(message) {
+        const chatRoomDiv = document.getElementById("chatRoom");
+        const messageDiv = document.createElement("div");
+        messageDiv.innerText = message;
+        chatRoomDiv.appendChild(messageDiv);
+      }
+    </script>
+    <input id="messageInput" />
+    <button onclick="handleSendMessage()">送出</button>
+    <div id="chatRoom"></div>
+  </body>
+</html>
