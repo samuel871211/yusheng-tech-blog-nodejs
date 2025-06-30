@@ -10,3 +10,15 @@ httpServer.on("request", function requestListener(req, res) {
   }
   return notFoundListener(req, res);
 });
+
+httpServer.on("connect", function connectListener(req, socket, head) {
+  console.log({
+    url: req.url,
+    method: req.method,
+    headers: req.headers,
+    head: head.toString("utf8"),
+  });
+  socket.end("HTTP/1.1 400 Bad Request\r\n\r\n");
+  socket.destroy();
+  return;
+});
