@@ -2,6 +2,7 @@ import send from "send";
 import httpServer from "../httpServer";
 import { faviconListener } from "../listeners/faviconListener";
 import { notFoundListener } from "../listeners/notFoundlistener";
+import { createConnection } from "net";
 
 httpServer.on("request", function requestListener(req, res) {
   if (req.url === "/favicon.ico") return faviconListener(req, res);
@@ -11,14 +12,39 @@ httpServer.on("request", function requestListener(req, res) {
   return notFoundListener(req, res);
 });
 
-httpServer.on("connect", function connectListener(req, socket, head) {
-  console.log({
-    url: req.url,
-    method: req.method,
-    headers: req.headers,
-    head: head.toString("utf8"),
-  });
-  socket.end("HTTP/1.1 400 Bad Request\r\n\r\n");
-  socket.destroy();
-  return;
-});
+httpServer.on(
+  "connect",
+  function connectListener(clientToProxyReq, clientToProxySocket, head) {
+    console.log({
+      url: clientToProxyReq.url,
+      method: clientToProxyReq.method,
+      headers: clientToProxyReq.headers,
+      head: head.toString("utf8"),
+    });
+    // todo 驗證格式
+    const [host, portStr] = String(clientToProxyReq.url).split(":");
+    const port = parseInt(portStr);
+
+    const proxyToTargetSocket = createConnection(
+      port,
+      host,
+      function onConnect() {
+        clientToProxySocket.write(
+          "HTTP/1.1 200 [Custom Status Text]Connection Established\r\n\r\n",
+        );
+        proxyToTargetSocket.write(head);
+        proxyToTargetSocket.pipe(clientToProxySocket);
+        clientToProxySocket.pipe(proxyToTargetSocket);
+      },
+    );
+
+    // todo 處理錯誤情境, 關閉 TCP 連線
+    // proxyToTargetSocket.on('error', function onError (err) {
+    //   console.log('proxyToTargetSocket', err);
+    //   clientToProxySocket.end();
+    //   clientToProxySocket.destroy();
+    //   proxyToTargetSocket.end();
+    //   proxyToTargetSocket.destroy();
+    // });
+  },
+);
