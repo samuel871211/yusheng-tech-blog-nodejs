@@ -10,9 +10,21 @@ httpServer.on("request", function requestListener(req, res) {
   if (req.url === "/example.txt") {
     return send(req, String(req.url), { root: __dirname }).pipe(res);
   }
-  // todo-yus
-  if (req.method === "TRACE" && req.url === "/TRACE") {
-    return res.end("ok");
+  if (req.method === "TRACE") {
+    // todo-yus handle max-forwards
+    if (parseInt(String(req.headers["max-forwards"])) > 0) {
+      res.statusCode = 501;
+      res.end("TRACE with max-forwards not implemented");
+      return;
+    }
+    const startLine = `TRACE ${req.url} HTTP/1.1\r\n`;
+    const reqHeadersToRawHTTP = Object.entries(req.headers)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join("\r\n");
+    const body = startLine + reqHeadersToRawHTTP + "\r\n\r\n";
+    res.setHeader("Content-Type", "message/http");
+    res.end(body);
+    return;
   }
   return notFoundListener(req, res);
 });
