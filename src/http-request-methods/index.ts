@@ -5,18 +5,9 @@ import { notFoundListener } from "../listeners/notFoundlistener";
 import { createConnection } from "net";
 
 httpServer.on("request", function requestListener(req, res) {
-  if (req.url === "/favicon.ico") return faviconListener(req, res);
-  // test HEAD Request
-  if (req.url === "/example.txt") {
-    return send(req, String(req.url), { root: __dirname }).pipe(res);
-  }
+  // Act as a Origin Server
   if (req.method === "TRACE") {
-    // todo-yus handle max-forwards
-    if (parseInt(String(req.headers["max-forwards"])) > 0) {
-      res.statusCode = 501;
-      res.end("TRACE with max-forwards not implemented");
-      return;
-    }
+    console.log(req.headers);
     const startLine = `TRACE ${req.url} HTTP/1.1\r\n`;
     const reqHeadersToRawHTTP = Object.entries(req.headers)
       .map(([key, value]) => `${key}: ${value}`)
@@ -25,6 +16,11 @@ httpServer.on("request", function requestListener(req, res) {
     res.setHeader("Content-Type", "message/http");
     res.end(body);
     return;
+  }
+  if (req.url === "/favicon.ico") return faviconListener(req, res);
+  // test HEAD Request
+  if (req.url === "/example.txt") {
+    return send(req, String(req.url), { root: __dirname }).pipe(res);
   }
   return notFoundListener(req, res);
 });
