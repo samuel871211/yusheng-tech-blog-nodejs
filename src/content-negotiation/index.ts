@@ -6,6 +6,9 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 const png = readFileSync(join(__dirname, "android-chrome-512x512.png"));
+const acceptAsResponseHeaderTestHTML = readFileSync(
+  join(__dirname, "accept-as-response-header-test.html"),
+);
 const availableMediaTypes = ["application/json", "text/html"];
 const availableLanguages = ["zh-TW", "en-US"];
 const messages: { [key: string]: { [key: string]: string | NonSharedBuffer } } =
@@ -22,6 +25,7 @@ const messages: { [key: string]: { [key: string]: string | NonSharedBuffer } } =
 
 httpServer.on("request", function requestListener(req, res) {
   if (req.url === "/favicon.ico") return faviconListener(req, res);
+  // content-negotiation
   if (req.url === "/") {
     const negotiator = new Negotiator({ headers: req.headers });
 
@@ -43,6 +47,9 @@ httpServer.on("request", function requestListener(req, res) {
   }
   // Accept as Response Header Test
   if (req.url === "/accept-as-response-header-test.html") {
+    res.setHeader("Content-Type", "text/html");
+    res.end(acceptAsResponseHeaderTestHTML);
+    return;
   }
   if (req.url === "/image1.png") {
     console.log("image1.png", req.headers.accept);

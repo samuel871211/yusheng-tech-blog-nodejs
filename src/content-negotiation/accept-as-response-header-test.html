@@ -1,0 +1,14 @@
+<html>
+  <head></head>
+  <body>
+    <h1>Image1</h1>
+    <div style="height: 300vh">
+      <img src="http://localhost:5000/image1.png" />
+    </div>
+    <!-- 第二張圖片要往下滾才會觸發 HTTP Request -->
+    <h1>Image2</h1>
+    <div style="height: 300vh">
+      <img src="http://localhost:5000/image2.png" loading="lazy" />
+    </div>
+  </body>
+</html>
