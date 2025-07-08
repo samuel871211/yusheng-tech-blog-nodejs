@@ -90,5 +90,46 @@ http5001Server.on("request", function requestListener(req, res) {
     return;
   }
 
+  // preflight + redirect
+  if (req.url === "/old-path") {
+    res.writeHead(308, { location: "http://localhost:5001/new-path" });
+    res.end();
+    return;
+  }
+  if (req.url === "/new-path") {
+    if (req.method === "OPTIONS") {
+      res.writeHead(204, {
+        "access-control-allow-origin": "http://localhost:5000",
+        "access-control-allow-methods": "PUT",
+      });
+      res.end();
+      return;
+    }
+    res.writeHead(200, {
+      "access-control-allow-origin": "http://localhost:5000",
+      "access-control-allow-methods": "PUT",
+      "content-type": "text/plain",
+    });
+    res.end();
+    return;
+  }
+
+  if (req.url === "/access-control-allow-credentials") {
+    res.setHeader("access-control-allow-credentials", "true");
+    res.setHeader("access-control-allow-methods", "*");
+    // res.setHeader("access-control-allow-origin", "*");
+    res.setHeader("access-control-allow-origin", "http://localhost:5000");
+    res.setHeader("access-control-allow-headers", "*");
+    res.setHeader("access-control-expose-headers", "*");
+    if (req.method === "OPTIONS") {
+      res.statusCode = 204;
+      res.end();
+      return;
+    }
+    res.statusCode = 200;
+    res.end();
+    return;
+  }
+
   return notFoundListener(req, res);
 });
