@@ -13,6 +13,13 @@ http5000Server.on("request", function requestListener(req, res) {
 http5001Server.on("request", function requestListener(req, res) {
   if (req.url === "/favicon.ico") return faviconListener(req, res);
 
+  // nginx basic auth proxy pass
+  if (req.url === "/") {
+    res.setHeader("Content-Type", "text/plain");
+    res.end("200 OK");
+    return;
+  }
+
   if (req.url === "/cors-safelisted-response-header") {
     res.writeHead(200, {
       "access-control-allow-origin": "http://localhost:5000",
@@ -56,6 +63,27 @@ http5001Server.on("request", function requestListener(req, res) {
     }
     res.writeHead(200, {
       "access-control-allow-origin": "http://localhost:5000",
+      "access-control-allow-headers": "authorization",
+    });
+    res.end();
+    return;
+  }
+
+  if (req.url === "/access-control-max-age") {
+    // 印出 req.method，確認瀏覽器真的有跳過 OPTIONS 請求
+    console.log(req.method);
+    if (req.method === "OPTIONS") {
+      res.writeHead(204, {
+        "access-control-allow-origin": "http://localhost:5000",
+        "access-control-allow-methods": "PUT",
+        "access-control-allow-headers": "authorization",
+      });
+      res.end();
+      return;
+    }
+    res.writeHead(200, {
+      "access-control-allow-origin": "http://localhost:5000",
+      "access-control-allow-methods": "PUT",
       "access-control-allow-headers": "authorization",
     });
     res.end();
