@@ -46,6 +46,7 @@
     "dev:nego": "npx nodemon src/content-negotiation/index.ts",
     "dev:auth": "npx nodemon src/authentication/index.ts",
     "dev:cors": "npx nodemon src/cross-origin-resource-sharing/index.ts",
+    "dev:beyond": "npx nodemon src/beyond-cors/index.ts",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
