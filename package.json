@@ -48,6 +48,7 @@
     "dev:cors": "npx nodemon src/cross-origin-resource-sharing/index.ts",
     "dev:beyond": "npx nodemon src/beyond-cors/index.ts",
     "dev:docu": "npx nodemon src/docusaurus/index.ts",
+    "dev:cache": "npx nodemon src/cache/index.ts",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
