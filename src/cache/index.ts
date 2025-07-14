@@ -6,7 +6,7 @@ import { notFoundListener } from "../listeners/notFoundlistener";
 httpServer.on("request", function requestListener(req, res) {
   if (req.url === "/favicon.ico") return faviconListener(req, res);
   if (req.url === "/image.jpg" || req.url === "/example.txt") {
-    console.log(req.url);
+    console.log(req.url, req.headers);
     const sendStream = send(req, String(req.url), {
       root: __dirname,
       // cacheControl: true,
@@ -16,6 +16,7 @@ httpServer.on("request", function requestListener(req, res) {
       lastModified: true,
       cacheControl: false,
     });
+    res.setHeader("X-Powered-By", "NodeJS");
     res.setHeader("Cache-Control", "public, max-age=5, must-revalidate");
     sendStream.pipe(res);
     return;
