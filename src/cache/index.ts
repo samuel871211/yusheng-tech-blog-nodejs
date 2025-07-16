@@ -1,7 +1,10 @@
 import send from "send";
+import etag from "etag";
 import httpServer from "../httpServer";
 import { faviconListener } from "../listeners/faviconListener";
 import { notFoundListener } from "../listeners/notFoundlistener";
+import { statSync } from "fs";
+import { join } from "path";
 
 httpServer.removeAllListeners("request");
 httpServer.on("request", function requestListener(req, res) {
@@ -33,27 +36,35 @@ httpServer.on("request", function requestListener(req, res) {
     if (qsCase === "2") {
       const sendStream = send(req, url.pathname, {
         root: __dirname,
-        etag: true,
+        etag: false,
         lastModified: true,
         cacheControl: true,
         maxAge: 5000,
         immutable: true,
       });
-      sendStream.pipe(res);
-      return;
-    }
-    // must-revalidate
-    if (qsCase === "3") {
-      res.setHeader("Cache-Control", "public, max-age=5, must-revalidate");
-      const sendStream = send(req, url.pathname, {
-        root: __dirname,
-        etag: true,
-        lastModified: true,
-        cacheControl: false,
+      res.setHeader(
+        "ETag",
+        etag(statSync(join(__dirname, url.pathname)), { weak: false }),
+      );
+      res.once("finish", () => {
+        console.log("Response headers:", res.getHeaders());
+        console.log("Status code:", res.statusCode);
       });
       sendStream.pipe(res);
       return;
     }
+    // // must-revalidate
+    // if (qsCase === "3") {
+    //   res.setHeader("Cache-Control", "public, max-age=5, must-revalidate");
+    //   const sendStream = send(req, url.pathname, {
+    //     root: __dirname,
+    //     etag: true,
+    //     lastModified: true,
+    //     cacheControl: false,
+    //   });
+    //   sendStream.pipe(res);
+    //   return;
+    // }
   }
   return notFoundListener(req, res);
 });
