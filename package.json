@@ -49,6 +49,7 @@
     "dev:beyond": "npx nodemon src/beyond-cors/index.ts",
     "dev:docu": "npx nodemon src/docusaurus/index.ts",
     "dev:cache": "npx nodemon src/cache/index.ts",
+    "dev:smtp": "npx ts-node src/smtp/index.ts",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
@@ -57,6 +58,7 @@
     "@types/etag": "^1.8.4",
     "@types/negotiator": "^0.6.4",
     "@types/node": "^22.15.14",
+    "@types/nodemailer": "^6.4.17",
     "@types/send": "^0.17.5",
     "@types/ws": "^8.18.1",
     "etag": "^1.8.1",
@@ -73,6 +75,7 @@
     "@modelcontextprotocol/sdk": "^1.7.0",
     "dotenv": "^16.4.7",
     "negotiator": "^1.0.0",
+    "nodemailer": "^7.0.5",
     "openai": "^4.89.0",
     "send": "^1.2.0",
     "undici": "^7.10.0",
