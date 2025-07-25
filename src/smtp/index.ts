@@ -16,6 +16,7 @@ transport
     subject: "3",
     // text: 'text',
     html: "<div>hello world</div>",
+    cc: ["wtf@email", "elho@email"],
   })
   .then((res) => console.log(res))
   .catch((err) => console.log(err));
