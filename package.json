@@ -61,7 +61,7 @@
     "@types/node": "^22.15.14",
     "@types/nodemailer": "^6.4.17",
     "@types/send": "^0.17.5",
-    "@types/smtp-server": "^3.5.10",
+    "@types/smtp-server": "^3.5.11",
     "@types/ws": "^8.18.1",
     "etag": "^1.8.1",
     "husky": "^9.1.7",
