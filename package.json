@@ -50,8 +50,8 @@
     "dev:docu": "npx nodemon src/docusaurus/index.ts",
     "dev:cache": "npx nodemon src/cache/index.ts",
     "dev:smtpc": "npx ts-node src/smtp-client/index.ts",
-    "dev:smtps": "node src/smtp-server/index.js",
-    "dev:ssmtpc": "node src/socket-smtp-client/index.js",
+    "dev:smtps": "npx nodemon src/smtp-server/index.ts",
+    "dev:ssmtpc": "npx ts-node src/socket-smtp-client/index.ts",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
