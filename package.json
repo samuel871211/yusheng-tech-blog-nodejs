@@ -6,7 +6,7 @@
     "node": "^22"
   },
   "lint-staged": {
-    "*.{html,ts,md}": [
+    "*.{html,ts,js,md}": [
       "prettier --write"
     ]
   },
@@ -50,7 +50,8 @@
     "dev:docu": "npx nodemon src/docusaurus/index.ts",
     "dev:cache": "npx nodemon src/cache/index.ts",
     "dev:smtpc": "npx ts-node src/smtp-client/index.ts",
-    "dev:smtps": "npx nodemon src/smtp-server/index.ts",
+    "dev:smtps": "node src/smtp-server/index.js",
+    "dev:ssmtpc": "node src/socket-smtp-client/index.js",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
