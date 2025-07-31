@@ -8,6 +8,8 @@ const SMTPServerInstance = new SMTPServer({
   secure: false,
   needsUpgrade: false,
   hideSTARTTLS: true,
+  authOptional: true,
+  // log the data
   onData(stream, session, callback) {
     console.log({ stream, session });
     const chunks: Buffer[] = [];
@@ -21,6 +23,7 @@ const SMTPServerInstance = new SMTPServer({
       callback(null, "OK");
     });
   },
+  // allow anyone to login
   onAuth(auth, session, callback) {
     console.log({ auth, session });
     callback(null, { user: { name: auth.username, password: auth.password } });
