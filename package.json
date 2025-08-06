@@ -53,6 +53,7 @@
     "dev:smtps": "npx nodemon src/smtp-server/index.ts",
     "dev:ssmtpc": "npx ts-node src/socket-smtp-client/index.ts",
     "dev:ps:sql": "npx ts-node src/port-swigger/sql-injection/index.ts",
+    "dev:ms": "npx nodemon src/malicious/index.ts",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
