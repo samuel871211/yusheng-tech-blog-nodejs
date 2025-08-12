@@ -34,6 +34,12 @@ httpServer.on("request", function requestListener(req, res) {
     res.end();
     return;
   }
+  if (req.url === "/301-to-yusheng-tech-blog") {
+    res.statusCode = 301;
+    res.setHeader("location", "https://yusheng-tech-blog.web.app");
+    res.end();
+    return;
+  }
   if (req.url === "/302") {
     res.statusCode = 302;
     res.setHeader("location", "http://localhost:5000");
