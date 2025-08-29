@@ -55,6 +55,7 @@
     "dev:ps:sql": "npx ts-node src/port-swigger/sql-injection/index.ts",
     "dev:ms": "npx nodemon src/malicious/index.ts",
     "dev:poc": "npx nodemon src/PoC/index.ts",
+    "dev:oob": "npx nodemon src/out-of-band/index.ts",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
