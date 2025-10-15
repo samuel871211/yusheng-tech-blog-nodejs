@@ -56,6 +56,7 @@
     "dev:ms": "npx nodemon src/malicious/index.ts",
     "dev:poc": "npx nodemon src/PoC/index.ts",
     "dev:oob": "npx nodemon src/out-of-band/index.ts",
+    "dev:race": "npx ts-node src/port-swigger/race-conditions/index.ts",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
