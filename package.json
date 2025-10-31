@@ -58,6 +58,7 @@
     "dev:oob": "npx nodemon src/out-of-band/index.ts",
     "dev:race": "npx ts-node src/port-swigger/race-conditions/index.ts",
     "dev:jwt": "npx ts-node src/jwt/index.ts",
+    "dev:http2": "npx nodemon src/http2/index.ts",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
