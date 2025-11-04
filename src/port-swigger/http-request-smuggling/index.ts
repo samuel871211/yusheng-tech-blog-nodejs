@@ -42,21 +42,36 @@ import tls from "tls";
 
 // lab1();
 
-function lab2() {
-  const request1 = `GPOST / HTTP/1.1\r\nHost: 0ae900a004d0e4fb80ad2b6a00aa0071.web-security-academy.net\r\n\r\n`;
+// function lab2() {
+//   const request1 = `GPOST / HTTP/1.1\r\nHost: 0ae900a004d0e4fb80ad2b6a00aa0071.web-security-academy.net\r\n\r\n`;
+//   const hex1 = Buffer.byteLength(request1).toString(16);
+
+//   const request2 = `GPOST / HTTP/1.1\r\nHost: 0ae900a004d0e4fb80ad2b6a00aa0071.web-security-academy.net\r\nContent-Type: text/plain\r\nContent-Length: 15\r\n\r\nOnly11Bytes`;
+//   const hex2 = Buffer.byteLength(request2).toString(16);
+
+//   const string3 = `Only11Bytes\r\n0\r\n\r\n`;
+//   const hex3 = Buffer.byteLength(string3).toString(10);
+
+//   console.log({
+//     [request1]: hex1,
+//     [request2]: hex2,
+//     [string3]: hex3,
+//   });
+// }
+
+// lab2();
+
+function lab3() {
+  const request1 = `GPOST / HTTP/1.1\r\nHost: 0ac100c303dc801697f00cbc00a20062.web-security-academy.net\r\nContent-Length: ??\r\n\r\nOnly??Bytes`;
   const hex1 = Buffer.byteLength(request1).toString(16);
 
-  const request2 = `GPOST / HTTP/1.1\r\nHost: 0ae900a004d0e4fb80ad2b6a00aa0071.web-security-academy.net\r\nContent-Type: text/plain\r\nContent-Length: 15\r\n\r\nOnly11Bytes`;
-  const hex2 = Buffer.byteLength(request2).toString(16);
-
-  const string3 = `Only11Bytes\r\n0\r\n\r\n`;
-  const hex3 = Buffer.byteLength(string3).toString(10);
+  const string2 = `Only11Bytes\r\n0\r\n\r\n`;
+  const hex2 = Buffer.byteLength(string2).toString(10);
 
   console.log({
     [request1]: hex1,
-    [request2]: hex2,
-    [string3]: hex3,
+    [string2]: hex2,
   });
 }
 
-lab2();
+lab3();
