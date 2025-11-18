@@ -1,6 +1,5 @@
 import { readFileSync } from "fs";
 import http2 from "http2";
-import http from "http";
 import { join } from "path";
 import httpServer from "../httpServer";
 
@@ -21,7 +20,7 @@ https2Server.on("request", (req, res) => {
   // setTimeout(() => res.end("Welcome to HTTP/2 Server"), 1000)
   // console.log(req.headers);
   // res.writeHead(200, { connection: 'keep-alive' });
-  // res.end("Welcome to HTTP/2 Server");
+  res.end("Welcome to HTTP/2 Server");
 });
 https2Server.on("remoteSettings", (remoteSettings) => {
   console.log("remoteSettings received", remoteSettings);
@@ -33,11 +32,12 @@ https2Server.on("session", (session) => {
   console.log("session created");
 });
 https2Server.on("stream", (stream) => {
-  setTimeout(() => {
-    stream.respond();
-    stream.end("Welcome to HTTP/2 Server");
-  }, 5000);
+  // setTimeout(() => {
+  //   stream.respond();
+  //   stream.end("Welcome to HTTP/2 Server");
+  // }, 5000);
 });
+https2Server.on("sessionError", console.error);
 https2Server.listen(5002);
 
 // const rootCA = readFileSync("/Users/yusheng/Library/Application Support/mkcert/rootCA.pem")
