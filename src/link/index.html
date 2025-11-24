@@ -1,7 +1,21 @@
 <html>
   <head>
     <link rel="prefetch" href="/page2.js" as="script" />
+
+    <link rel="preconnect" href="https://localhost:5000" />
+
+    <!-- crossorigin test -->
+    <script>
+      addEventListener("error", console.log);
+    </script>
+    <!-- <script src="http://localhost:5001/script.js"></script> -->
+    <!-- <script src="http://localhost:5001/script.js" crossorigin></script> -->
+    <script>
+      fetch("http://localhost:5000/", { credentials: "omit" });
+    </script>
+    <script src="http://localhost:5000" crossorigin></script>
   </head>
+
   <body>
     <a href="/page2">Go to page2</a>
   </body>

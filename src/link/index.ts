@@ -1,12 +1,11 @@
 import { readFileSync } from "fs";
-import httpServer from "../httpServer";
+import httpServer, { http5001Server } from "../httpServer";
 import { faviconListener } from "../listeners/faviconListener";
 import { notFoundListener } from "../listeners/notFoundlistener";
 import { join } from "path";
 
 httpServer.on("request", (req, res) => {
   const url = new URL(req.url || "", "http://localhost:5000");
-  console.log(url);
   if (url.pathname === "/page2.js") {
     res.setHeader("content-type", "text/javascript");
     res.setHeader("Cache-Control", "public, max-age=60");
@@ -25,4 +24,15 @@ httpServer.on("request", (req, res) => {
   }
   if (url.pathname === "/favicon.ico") return faviconListener(req, res);
   return notFoundListener(req, res);
+});
+
+http5001Server.on("request", (req, res) => {
+  const url = new URL(req.url || "", "http://localhost:5001");
+  if (url.pathname === "/script.js") {
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5000");
+    res.setHeader("content-type", "text/javascript");
+    res.end("a"); // 刻意觸發 Uncaught ReferenceError: a is not defined
+    return;
+  }
 });
