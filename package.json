@@ -62,6 +62,7 @@
     "dev:smuggle": "npx nodemon src/port-swigger/http-request-smuggling/index.ts",
     "dev:pipe": "npx nodemon src/pipelining/index.ts",
     "dev:link": "npx nodemon src/link/index.ts",
+    "dev:smu": "npx ts-node src/http-request-smuggling/index.ts",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"
