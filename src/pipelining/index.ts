@@ -11,7 +11,7 @@ const requestListener: RequestListener = (req, res) => {
   if (url.pathname === "/") {
     return setTimeout(() => {
       if (!res.writableEnded) {
-        res.setHeader("Access-Control-Allow-Origin", "*");
+        // res.setHeader("Access-Control-Allow-Origin", "*");
         return res.end(`sleepMs = ${sleepMs}`);
       }
     }, sleepMs);
@@ -23,4 +23,4 @@ const requestListener: RequestListener = (req, res) => {
 };
 httpServer.on("request", requestListener);
 
-createServer().listen(5001).on("request", requestListener);
+// createServer().listen(5001).on("request", requestListener);
