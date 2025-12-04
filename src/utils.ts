@@ -3,14 +3,14 @@ import tls, { TLSSocket } from "tls";
 
 function createSocket(url: URL) {
   return new Promise<net.Socket>((resolve) => {
-    const socket = net.connect(443, url.host);
+    const socket = net.connect(parseInt(url.port), url.hostname);
     socket.on("connect", () => resolve(socket));
   });
 }
 
 function createTLSSocket(url: URL) {
   return new Promise<tls.TLSSocket>((resolve) => {
-    const socket = net.connect(443, url.host);
+    const socket = net.connect(443, url.hostname);
     socket.on("connect", () => {
       const tlsSocket = tls.connect({ socket, servername: url.host });
       tlsSocket.on("secureConnect", () => resolve(tlsSocket));
