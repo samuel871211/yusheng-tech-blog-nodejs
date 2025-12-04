@@ -1,5 +1,5 @@
 import { writeFileSync } from "fs";
-import { createTLSSocket, readSocketData, writeAsync } from "./utils";
+import { createTLSSocket, readSocketData, writeAsync } from "../utils";
 
 // config
 const url = new URL("https://www.gaiia.com.tw/");
@@ -35,7 +35,8 @@ async function main() {
       continue;
     }
     // handle response
-    const response = await readSocketData(tlsSocket);
+    const responseBuffer = await readSocketData(tlsSocket);
+    const response = responseBuffer.toString("utf8");
     tlsSocket.end();
     responses.push(response);
     handleResponse(response, i);

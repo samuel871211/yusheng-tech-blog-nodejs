@@ -1,6 +1,13 @@
 import net, { Socket } from "net";
 import tls, { TLSSocket } from "tls";
 
+function createSocket(url: URL) {
+  return new Promise<net.Socket>((resolve) => {
+    const socket = net.connect(443, url.host);
+    socket.on("connect", () => resolve(socket));
+  });
+}
+
 function createTLSSocket(url: URL) {
   return new Promise<tls.TLSSocket>((resolve) => {
     const socket = net.connect(443, url.host);
@@ -11,10 +18,10 @@ function createTLSSocket(url: URL) {
   });
 }
 function readSocketData(socket: Socket | TLSSocket) {
-  return new Promise<string>((resolve) => {
+  return new Promise<Buffer<ArrayBuffer>>((resolve) => {
     const chunks: Buffer[] = [];
     socket.on("data", (chunk) => chunks.push(chunk));
-    socket.on("end", () => resolve(Buffer.concat(chunks).toString("utf-8")));
+    socket.on("end", () => resolve(Buffer.concat(chunks)));
   });
 }
 
@@ -23,4 +30,4 @@ function writeAsync(socket: Socket | TLSSocket, buffer: string) {
     socket.write(buffer, () => resolve(true)),
   );
 }
-export { createTLSSocket, readSocketData, writeAsync };
+export { createSocket, createTLSSocket, readSocketData, writeAsync };
