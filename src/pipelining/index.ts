@@ -22,28 +22,31 @@ const requestListener: RequestListener = (req, res) => {
   if (url.pathname === "/favicon.ico") return faviconListener(req, res);
   return notFoundListener(req, res);
 };
+// httpServer.keepAliveTimeout = 1;
 httpServer.on("request", requestListener);
 
-async function pipeline() {
-  const url = new URL("http://localhost:5000");
-  const socket = await createSocket(url);
-  socket.write(
-    `GET / HTTP/1.1
-Host: localhost
+// async function pipeline() {
+//   const url = new URL("http://localhost:5000");
+//   const socket = await createSocket(url);
+//   socket.write(
+//     `GET / HTTP/1.1
+// Host: localhost
 
-GET /?sleepMs=1000 HTTP/1.1
-Host: localhost
+// GET /?sleepMs=1000 HTTP/1.1
+// Host: localhost
 
-GET /?sleepMs=2000 HTTP/1.1
-Host: localhost
+// GET /?sleepMs=2000 HTTP/1.1
+// Host: localhost
 
-`.replaceAll("\n", "\r\n"),
-  );
-  const responseBuffer = await readSocketData(socket);
-  const response = responseBuffer.toString("utf8");
-  console.log(response);
-}
+// `.replaceAll("\n", "\r\n"),
+//     () => console.time("pipeline"),
+//   );
+//   const responseBuffer = await readSocketData(socket);
+//   const response = responseBuffer.toString("utf8");
+//   console.timeEnd("pipeline");
+//   console.log(response);
+// }
 
-pipeline();
+// pipeline();
 
 // createServer().listen(5001).on("request", requestListener);
