@@ -38,6 +38,11 @@ httpServer.on("request", (req, res) => {
     );
     res.setHeader("content-type", "text/javascript");
     res.end(`const hello = "world";`);
+  }
+  if (url.pathname === "/preconnect") {
+    res.setHeader("link", `<http://localhost:5001>; rel="preconnect"`);
+    res.setHeader("content-type", "text/html");
+    res.end(readFileSync(join(__dirname, "preconnect.html")));
     return;
   }
   if (url.pathname === "/favicon.ico") return faviconListener(req, res);
@@ -67,4 +72,16 @@ http5001Server.on("request", (req, res) => {
 
 http5001Server.on("connection", (socket) => {
   console.log("connection", new Date().toISOString());
+});
+
+http5001Server.timeout = 5000;
+// http5001Server.requestTimeout = 3000;
+http5001Server.on("connection", (socket) => {
+  console.log("connection");
+  console.time("connection");
+  socket.on("error", console.log);
+  socket.on("close", (hadError) => {
+    console.timeEnd("connection");
+    console.log({ event: "close", hadError });
+  });
 });
