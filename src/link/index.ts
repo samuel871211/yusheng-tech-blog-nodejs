@@ -22,17 +22,49 @@ httpServer.on("request", (req, res) => {
     res.end(readFileSync(join(__dirname, "page2.html")));
     return;
   }
+  if (url.pathname === "/preload") {
+    res.setHeader(
+      "link",
+      `<http://localhost:5001/preload.js>; rel="preload"; as="script"`,
+    );
+    res.setHeader("content-type", "text/html");
+    res.end(readFileSync(join(__dirname, "preload.html")));
+    return;
+  }
+  if (url.pathname === "/js-with-link-preload") {
+    res.setHeader(
+      "link",
+      `<http://localhost:5001/preload.js>; rel="preload"; as="script"`,
+    );
+    res.setHeader("content-type", "text/javascript");
+    res.end(`const hello = "world";`);
+    return;
+  }
   if (url.pathname === "/favicon.ico") return faviconListener(req, res);
   return notFoundListener(req, res);
 });
 
 http5001Server.on("request", (req, res) => {
   const url = new URL(req.url || "", "http://localhost:5001");
+  if (url.pathname === "/preload.js") {
+    console.log(url.searchParams);
+    // res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("content-type", "text/javascript");
+    res.end(`const preload = true;`);
+    return;
+  }
   if (url.pathname === "/script.js") {
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5000");
+    // res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("content-type", "text/javascript");
     res.end("a"); // 刻意觸發 Uncaught ReferenceError: a is not defined
     return;
   }
+  // if (url.pathname === "/connection-closed") {
+  //   res.
+  // }
+});
+
+http5001Server.on("connection", (socket) => {
+  console.log("connection", new Date().toISOString());
 });
