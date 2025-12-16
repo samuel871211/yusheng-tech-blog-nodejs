@@ -1,6 +1,10 @@
 import net, { Socket } from "net";
 import tls, { TLSSocket } from "tls";
 
+function sleep(ms: number) {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
+}
+
 function createSocket(url: URL) {
   return new Promise<net.Socket>((resolve) => {
     const socket = net.connect(parseInt(url.port), url.hostname);
@@ -30,4 +34,4 @@ function writeAsync(socket: Socket | TLSSocket, buffer: string) {
     socket.write(buffer, () => resolve(true)),
   );
 }
-export { createSocket, createTLSSocket, readSocketData, writeAsync };
+export { sleep, createSocket, createTLSSocket, readSocketData, writeAsync };

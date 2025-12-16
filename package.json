@@ -64,6 +64,7 @@
     "dev:link": "npx nodemon src/link/index.ts",
     "dev:smu": "npx ts-node src/http-request-smuggling/index.ts",
     "dev:ngrok": "npx nodemon src/ngrok/index.ts",
+    "dev:100": "npx nodemon src/100-continue/index.ts",
     "prepare": "husky",
     "build": "tsc",
     "start": "node dist/index.js"

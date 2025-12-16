@@ -3,7 +3,8 @@ import { faviconListener } from "../listeners/faviconListener";
 import { notFoundListener } from "../listeners/notFoundlistener";
 
 httpServer.on('request', function requestListener (req, res) {
-  if (req.url === "/favicon.ico") return faviconListener(req, res);
+  const url = new URL(req.url || '/', 'http://localhost:5000');
+  if (url.pathname === "/favicon.ico") return faviconListener(req, res);
 
   return notFoundListener(req, res);
 })
