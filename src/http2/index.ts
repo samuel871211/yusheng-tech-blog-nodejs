@@ -3,12 +3,12 @@ import http2 from "http2";
 import { join } from "path";
 import httpServer from "../httpServer";
 
-// const http2Server = http2.createServer();
-// http2Server.on('request', (req, res) => {
-//     console.log(req.headers);
-//     res.end('Welcome to HTTP/2 Server')
-// })
-// http2Server.listen(5001)
+const http2Server = http2.createServer();
+http2Server.on("request", (req, res) => {
+  console.log(req.headers);
+  res.end("Welcome to HTTP/2 Server");
+});
+http2Server.listen(5003);
 
 const https2Server = http2.createSecureServer({
   key: readFileSync(join(__dirname, "private-key.pem")),
